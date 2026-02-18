@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "version": "1.0",
+    "lastUpdated": "2026-02-18T20:20:00+08:00",
+    "tokenEstimate": 150
+  },
+  "user": {
+    "name": "heyi",
+    "timezone": "Asia/Shanghai",
+    "device": "MacBook Air",
+    "channel": "whatsapp"
+  },
+  "identity": {
+    "name": "未设定",
+    "emoji": null,
+    "vibe": "简洁实用"
+  },
+  "integrations": {
+    "moltbook": {
+      "username": "heyiagent",
+      "status": "claimed",
+      "community": "openclaw-explorers"
+    }
+  },
+  "files": {
+    "memory": "MEMORY.md",
+    "dailyNotes": "memory/",
+    "heartbeat": "HEARTBEAT.md",
+    "tools": "TOOLS.md"
+  },
+  "optimizations": {
+    "tokenStrategy": "haribo-pattern",
+    "heartbeatStyle": "layered-compression",
+    "lastAudit": "2026-02-18"
+  },
+  "todos": [
+    "设置 Nightly Build cron job"
+  ]
+}
