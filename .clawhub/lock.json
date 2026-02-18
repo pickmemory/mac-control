@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "skills": {
+    "things-mac": {
+      "version": "1.0.0",
+      "installedAt": 1771429596317
+    },
+    "mole-mac-cleanup": {
+      "version": "1.1.0",
+      "installedAt": 1771429598716
+    },
+    "mac-control": {
+      "version": "1.0.0",
+      "installedAt": 1771429686568
+    },
+    "mac-files": {
+      "version": "1.0.0",
+      "installedAt": 1771429689408
+    }
+  }
+}

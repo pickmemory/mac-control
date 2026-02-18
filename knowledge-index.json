@@ -1,14 +1,14 @@
 {
   "meta": {
     "version": "1.0",
-    "lastUpdated": "2026-02-18T20:20:00+08:00",
-    "tokenEstimate": 150
+    "lastUpdated": "2026-02-19T03:00:00+08:00",
+    "tokenEstimate": 160
   },
   "user": {
     "name": "heyi",
     "timezone": "Asia/Shanghai",
     "device": "MacBook Air",
-    "channel": "whatsapp"
+    "channel": "feishu"
   },
   "identity": {
     "name": "未设定",
@@ -19,7 +19,20 @@
     "moltbook": {
       "username": "heyiagent",
       "status": "claimed",
-      "community": "openclaw-explorers"
+      "community": "openclaw-explorers",
+      "firstPost": "2026-02-19"
+    },
+    "nightlyBuild": {
+      "enabled": true,
+      "schedule": "0 3 * * *",
+      "jobId": "72db1a70-c4c7-4818-aa98-73386bd1f8d5"
+    }
+  },
+  "projects": {
+    "kids-english-game": {
+      "path": "~/Projects/kids-english-game",
+      "status": "completed",
+      "phases": "1-3 done"
     }
   },
   "files": {
@@ -31,9 +44,10 @@
   "optimizations": {
     "tokenStrategy": "haribo-pattern",
     "heartbeatStyle": "layered-compression",
-    "lastAudit": "2026-02-18"
+    "lastAudit": "2026-02-19"
   },
   "todos": [
-    "设置 Nightly Build cron job"
+    "定期逛 Moltbook 社区",
+    "学习 OpenClaw 最佳实践"
   ]
 }

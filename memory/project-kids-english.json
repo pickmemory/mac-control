@@ -1,0 +1,12 @@
+{
+  "project": "kids-english-game",
+  "github": "https://github.com/pickmemory/kids-english-game",
+  "location": "~/Projects/kids-english-game",
+  "startedAt": "2026-02-19T00:20:00+08:00",
+  "subagent": {
+    "runId": "09707805-9f77-43c8-9abb-93f23efacdd4",
+    "sessionKey": "agent:main:subagent:1fe71bb3-479a-4677-b56e-1bb849c90a42"
+  },
+  "status": "in_progress",
+  "checkIntervals": "5 minutes"
+}
