@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "mac-control": {
+      "version": "1.0.0",
+      "installedAt": 1771602089806
+    },
+    "macos-desktop-control": {
+      "version": "1.0.0",
+      "installedAt": 1771602661699
+    },
+    "things-mac": {
+      "version": "1.0.0",
+      "installedAt": 1771602751730
+    }
+  }
+}

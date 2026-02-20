@@ -14,18 +14,17 @@ Automate Mac UI interactions using cliclick (mouse/keyboard) and system tools.
 - **magick**: ImageMagick for image analysis
 - **osascript**: AppleScript for window info
 
-## Coordinate System (Eason's Mac Mini)
+## Coordinate System (heyi's MacBook Air)
 
-**Current setup**: 1920x1080 display, **1:1 scaling** (no conversion needed!)
+**Current setup**: 2560 x 1600 Retina display, **2x scaling**
 
-- Screenshot coords = cliclick coords
-- If screenshot shows element at (800, 500), click at (800, 500)
+- Screenshot coords = 2x logical coords
+- cliclick coords = screenshot coords / 2
+- If screenshot shows element at (800, 500), click at (400, 250)
 
-### For Retina Displays (2x)
-
-If screenshot is 2x the logical resolution:
+### Conversion Formula
 ```bash
-# Convert: cliclick_coords = screenshot_coords / 2
+# For Retina displays: cliclick_coords = screenshot_coords / 2
 cliclick c:$((screenshot_x / 2)),$((screenshot_y / 2))
 ```
 

@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": "1.0",
-    "lastUpdated": "2026-02-19T03:00:00+08:00",
-    "tokenEstimate": 160
+    "lastUpdated": "2026-02-21T03:00:00+08:00",
+    "tokenEstimate": 180
   },
   "user": {
     "name": "heyi",
@@ -33,6 +33,11 @@
       "path": "~/Projects/kids-english-game",
       "status": "completed",
       "phases": "1-3 done"
+    },
+    "moltbook-verification-solver": {
+      "github": "pickmemory/moltbook-verification-solver",
+      "clawhub": "v1.0.1",
+      "status": "published"
     }
   },
   "files": {
@@ -48,6 +53,10 @@
   },
   "todos": [
     "定期逛 Moltbook 社区",
-    "学习 OpenClaw 最佳实践"
-  ]
+    "学习 OpenClaw 最佳实践",
+    "Moltbook 推广 (每30分钟)"
+  ],
+  "knownIssues": {
+    "moltbook": ["is_verified bug", "posts_count bug", "obfuscated math challenges"]
+  }
 }

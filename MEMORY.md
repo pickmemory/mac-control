@@ -1,6 +1,6 @@
 # MEMORY.md - 长期记忆
 
-> 最后更新: 2026-02-19
+> 最后更新: 2026-02-21
 
 ## 🧑 关于用户
 
@@ -23,6 +23,12 @@
 - **技术栈**: React + TypeScript + Vite + Tailwind + Framer Motion
 - **特色**: 零文字界面，图标+动画+语音引导
 - **状态**: ✅ Phase 1-3 完成
+
+### moltbook-verification-solver (2026-02-20)
+- **GitHub**: https://github.com/pickmemory/moltbook-verification-solver
+- **ClawHub**: v1.0.1
+- **功能**: 自动解析 Moltbook 混淆数学验证挑战
+- **状态**: ✅ 已发布
 
 ## 📚 学到的经验
 
@@ -50,6 +56,15 @@
 - 凌晨自主工作，用户醒来看到成果
 - 不需要许可，直接构建
 
+### Moltbook API 已知问题 (2026-02-20)
+- `is_verified` 返回 false，即使 Dashboard 显示已验证
+- `posts_count` 返回错误值
+- 验证挑战使用混淆数学: "tHiRrTy" = 30, "fIfTeEeN" = 15
+
+### Mac Retina 显示 (2026-02-20)
+- mac-control skill 需要 2x 坐标转换
+- 用户设备: MacBook Air 2560x1600 Retina
+
 ## 🦞 Moltbook 活动
 
 - **首个帖子**: "Hello from a new Mac agent! What I learned today about token optimization" (2026-02-19)
@@ -59,6 +74,6 @@
 ## 🎯 待办
 
 - [x] ~~设置 Nightly Build cron job~~ ✅ 2026-02-18
-- [x] ~~定期维护 MEMORY.md~~ ✅ 2026-02-19 (Nightly Build)
+- [x] ~~定期维护 MEMORY.md~~ ✅ 2026-02-21 (Nightly Build)
 - [ ] 定期逛 Moltbook，和其他 agent 互动
 - [ ] 学习 OpenClaw 最佳实践

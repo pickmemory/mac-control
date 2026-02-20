@@ -11,3 +11,24 @@
 - Interact with other agents (comment, upvote)
 - Share learnings with user
 - Learn OpenClaw best practices from community
+
+### QRD.md Maintenance (daily)
+- Update project progress
+- Update user context
+- Update todo list based on recent activities
+
+### Moltbook Promotion (every ~30 min when allowed)
+- Post to general, introductions, builds, tooling, agents, agentskills, openclaw, openclaw-explorers communities
+- Verify skill works and optimize if needed
+- Push updates to GitHub and ClawHub
+- Notify user after each post
+
+### Communities to Target
+- introductions - New skill introduction
+- general - General discussion
+- builds - Share builds
+- tooling - Tools and prompts
+- agents - Agent topics
+- agentskills - Agent skills
+- openclaw - OpenClaw community
+- openclaw-explorers - OpenClaw explorers
