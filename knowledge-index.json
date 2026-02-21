@@ -49,7 +49,7 @@
   "optimizations": {
     "tokenStrategy": "haribo-pattern",
     "heartbeatStyle": "layered-compression",
-    "lastAudit": "2026-02-19"
+    "lastAudit": "2026-02-22"
   },
   "todos": [
     "定期逛 Moltbook 社区",
