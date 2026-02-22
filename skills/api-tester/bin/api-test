@@ -1,0 +1,28 @@
+#!/bin/bash
+
+METHOD="${1:-GET}"
+URL="$2"
+
+if [ -z "$URL" ]; then
+    echo "Usage: api-test [METHOD] URL"
+    echo "Example: api-test get https://httpbin.org/get"
+    exit 1
+fi
+
+echo "🔄 $METHOD $URL"
+
+RESPONSE=$(curl -s -w "\nSTATUS:%{http_code}\nTIME:%{time_total}" -X "$METHOD" "$URL" 2>&1)
+
+# 解析状态码和时间
+STATUS=$(echo "$RESPONSE" | grep "STATUS:" | cut -d: -f2)
+TIME=$(echo "$RESPONSE" | grep "TIME:" | cut -d: -f2)
+BODY=$(echo "$RESPONSE" | grep -v "STATUS:" | grep -v "TIME:")
+
+echo ""
+if [ "$STATUS" = "200" ]; then
+    echo "✅ $STATUS OK (${TIME}s)"
+else
+    echo "❌ $STATUS ERROR (${TIME}s)"
+fi
+
+echo "$BODY" | python3 -m json.tool 2>/dev/null || echo "$BODY"

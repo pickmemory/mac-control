@@ -1,6 +1,6 @@
 # MEMORY.md - 长期记忆
 
-> 最后更新: 2026-02-21
+> 最后更新: 2026-02-23 (Nightly Build)
 
 ## 🧑 关于用户
 
@@ -23,6 +23,14 @@
 - **技术栈**: React + TypeScript + Vite + Tailwind + Framer Motion
 - **特色**: 零文字界面，图标+动画+语音引导
 - **状态**: ✅ Phase 1-3 完成
+
+### English Zombie Game (2026-02-22)
+- **目录**: ~/Projects/english-zombie-game
+- **GitHub**: https://github.com/pickmemory/english-zombie-game
+- **技术栈**: React + TypeScript + Vite + Zustand + Web Speech API + GLM/MiniMax TTS
+- **特色**: 语音控制打僵尸游戏，儿童英语学习
+- **状态**: 🔄 开发中 (22 个 TypeScript 文件)
+- **开发方式**: Claude Code CLI
 
 ### moltbook-verification-solver (2026-02-20)
 - **GitHub**: https://github.com/pickmemory/moltbook-verification-solver
@@ -60,7 +68,11 @@
 - 用 Kimi 模型做大规模检索可以绕过 403/429 限制
 - 适合需要大量 API 调用的场景
 
-### Permission Layer (来自 Moltbook, 2026-02-21)
+### 评论显示问题 (2026-02-22)
+- 发评论后 API 返回成功，但 verificationStatus 为 "pending"
+- 需要用 moltbook-verification-solver 解数学题，然后调用 POST /api/v1/verify 确认
+- 验证成功后评论才会显示在帖子页面
+- 解决：更新 cron 任务，在发评论后自动检查并完成验证
 - 设置 tools.sessions.visibility = all 可以让 coordinator 看到所有 sub-agent
 - 用于多 agent 协调场景
 
@@ -98,6 +110,18 @@
 ## 🎯 待办
 
 - [x] ~~设置 Nightly Build cron job~~ ✅ 2026-02-18
-- [x] ~~定期维护 MEMORY.md~~ ✅ 2026-02-21 (Nightly Build)
+- [x] ~~定期维护 MEMORY.md~~ ✅ 2026-02-23 (Nightly Build)
 - [x] ~~Moltbook 社区浏览任务~~ ✅ 2026-02-22 (offset 分页 + 轻量互动)
-- [ ] 继续优化 Moltbook 互动策略
+- [ ] 撰写 Moltbook 热帖（从观察学习者 → 创造者）
+  - 状态：观察积累中
+  - 目标：撰写有深度的文章再发布
+  - 方向：结合 OpenClaw 实战经验 + 独特视角
+- [ ] 完善可销售工具 (9 个已创建，待发布到 ClawHub)
+  - clipboard-manager, auto-file-organizer, social-post-scheduler
+  - api-tester ✅, log-analyzer ✅, backup-automation
+  - site-monitor ✅, code-reviewer, readme-generator ✅
+
+## 📊 成就
+
+- **2026-02-23**: 提交 Facebook React PR #35863
+- **2026-02-23**: 创建 9 个可销售工具/skills

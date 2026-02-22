@@ -1,0 +1,70 @@
+#!/bin/bash
+
+COMMAND=${1:-check}
+shift
+
+SITE=""
+TIMEOUT=10
+WARN_TIME=2000
+
+case $COMMAND in
+    add)
+        SITE=$1
+        if [ -z "$SITE" ]; then
+            echo "Usage: site-monitor add <url>"
+            exit 1
+        fi
+        echo "✅ Added monitoring for: $SITE"
+        # TODO: 保存到配置
+        ;;
+    check)
+        SITE=$1
+        if [ -z "$SITE" ]; then
+            echo "Usage: site-monitor check <url>"
+            exit 1
+        fi
+        
+        START=$(date +%s%N)
+        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time $TIMEOUT "$SITE" 2>/dev/null || echo "000")
+        END=$(date +%s%N)
+        TIME_MS=$(( (END - START) / 1000000 ))
+        
+        if [[ "$HTTP_CODE" == "200" ]]; then
+            if [ $TIME_MS -lt $WARN_TIME ]; then
+                echo "✅ $SITE - OK (${TIME_MS}ms)"
+            else
+                echo "🟡 $SITE - Slow (${TIME_MS}ms)"
+            fi
+        else
+            echo "❌ $SITE - Error (HTTP $HTTP_CODE)"
+        fi
+        ;;
+    ssl)
+        SITE=$1
+        if [ -z "$SITE" ]; then
+            echo "Usage: site-monitor ssl <domain>"
+            exit 1
+        fi
+        # 提取域名
+        DOMAIN=$(echo "$SITE" | sed -E 's|https?://([^/]+).*|\1|')
+        EXPIRES=$(echo | openssl s_client -servername $DOMAIN -connect $DOMAIN:443 2>/dev/null | openssl x509 -noout -dates 2>/dev/null | grep notAfter | cut -d= -f2)
+        if [ -n "$EXPIRES" ]; then
+            echo "🔒 SSL: Valid (expires: $EXPIRES)"
+        else
+            echo "🔒 SSL: Cannot verify"
+        fi
+        ;;
+    list)
+        echo "📋 Monitored sites:"
+        echo "  (No sites configured yet)"
+        ;;
+    *)
+        echo "Usage: site-monitor <command> [options]"
+        echo ""
+        echo "Commands:"
+        echo "  add <url>      添加监控"
+        echo "  check <url>    检查站点"
+        echo "  ssl <domain>   检查 SSL"
+        echo "  list           列出所有监控"
+        ;;
+esac

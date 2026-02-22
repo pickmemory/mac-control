@@ -1,0 +1,69 @@
+#!/bin/bash
+
+COMMAND=${1:-init}
+PROJECT_PATH="."
+shift
+
+case $COMMAND in
+    init|generate)
+        # 检测项目类型
+        if [ -n "$1" ]; then
+            PROJECT_PATH="$1"
+        fi
+        
+        cd "$PROJECT_PATH"
+        
+        echo "🔍 检测项目信息..."
+        
+        # 检测包管理器
+        if [ -f "package.json" ]; then
+            echo "   📦 npm 项目"
+            NAME=$(node -p "require('./package.json').name" 2>/dev/null || echo "my-project")
+            DESC=$(node -p "require('./package.json').description" 2>/dev/null || echo "A project")
+            VERSION=$(node -p "require('./package.json').version" 2>/dev/null || echo "1.0.0")
+        elif [ -f "Cargo.toml" ]; then
+            echo "   📦 Rust 项目"
+            NAME=$(grep -m1 "name" Cargo.toml | cut -d'"' -f2)
+            DESC=$(grep -m1 "description" Cargo.toml | cut -d'"' -f2)
+            VERSION=$(grep -m1 "version" Cargo.toml | cut -d'"' -f2)
+        elif [ -f "setup.py" ]; then
+            echo "   📦 Python 项目"
+            NAME=$(python3 -c "import re; print(re.search(r'name=[\"']([^\"']+)[\"']', open('setup.py').read()).group(1))" 2>/dev/null || echo "my-project")
+        else
+            echo "   📦 未知项目类型"
+            NAME="my-project"
+            DESC="A project"
+            VERSION="1.0.0"
+        fi
+        
+        # 生成 README
+        cat > README.md << README
+# $NAME
+
+$DESC
+
+## 📦 安装
+
+\`\`\`bash
+npm install $NAME
+\`\`\`
+
+## 🚀 使用
+
+\`\`\`javascript
+const $NAME = require('$NAME');
+
+TODO: Add usage examples
+\`\`\`
+
+## 📝 License
+
+MIT
+README
+        
+        echo "✅ README.md 已生成!"
+        ;;
+    *)
+        echo "Usage: readme-gen [init|generate] [path]"
+        ;;
+esac
