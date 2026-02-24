@@ -18,21 +18,59 @@ Automate Mac UI interactions using cliclick (mouse/keyboard) and system tools.
 
 **Current setup**: 2560 x 1600 Retina display, **2x scaling**
 
-- Screenshot coords = 2x logical coords
-- cliclick coords = screenshot coords / 2
-- If screenshot shows element at (800, 500), click at (400, 250)
+### ⚠️ 坐标系统说明
 
-### Conversion Formula
+| 工具 | 坐标类型 | 说明 |
+|------|---------|------|
+| `screencapture` | 物理像素 (2x) | 截图尺寸 = 逻辑尺寸 × 2 |
+| `cliclick` | 逻辑坐标 (points) | 与 AppleScript 一致 |
+| `AppleScript` | 逻辑坐标 (points) | macOS 原生坐标系统 |
+| `browser snapshot` | 物理像素 (2x) | 截图尺寸 = 逻辑尺寸 × 2 |
+
+### 转换公式
+
 ```bash
-# For Retina displays: cliclick_coords = screenshot_coords / 2
-cliclick c:$((screenshot_x / 2)),$((screenshot_y / 2))
+# 从截图坐标转换为 cliclick 坐标
+cliclick_x = screenshot_x / 2
+cliclick_y = screenshot_y / 2
+
+# 示例：截图显示元素在 (800, 500)
+cliclick c:$((800 / 2)),$((500 / 2))
+# 等价于
+cliclick c:400,250
 ```
 
-### Calibration Script
+### 校准步骤
 
-Run to verify your scale factor:
+**重要：** 在首次使用或坐标不准确时运行校准：
+
 ```bash
-/Users/eason/clawd/scripts/calibrate-cursor.sh
+# 1. 运行校准脚本
+/Users/heyi/.openclaw/workspace/skills/mac-control/calibrate-coordinates.sh
+
+# 2. 验证坐标
+# - 记录校准脚本报告的鼠标位置
+# - 与实际屏幕位置对比
+# - 如果偏差 > 5%，调整缩放比例
+```
+
+### 验证 - 点击 - 验证工作流
+
+```bash
+# 1. 截图
+/usr/sbin/screencapture -x /tmp/before.png
+
+# 2. 查看截图找到目标坐标 (使用 Read 工具)
+# 假设找到目标在截图的 (1000, 600)
+
+# 3. 转换为 cliclick 坐标 (÷2)
+# cliclick 坐标 = (500, 300)
+
+# 4. 点击
+/opt/homebrew/bin/cliclick c:500,300
+
+# 5. 验证
+/usr/sbin/screencapture -x /tmp/after.png
 ```
 
 ## cliclick Commands
