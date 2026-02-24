@@ -258,6 +258,88 @@ type_text() {
 }
 
 # ============================================================================
+# 剪贴板粘贴输入（用于密码等受保护输入框）
+# ============================================================================
+paste_text() {
+    local text="$1"
+    
+    echo -e "${CYAN}📋 剪贴板粘贴：$text${NC}"
+    
+    # 保存当前剪贴板内容
+    local old_clipboard=$(pbpaste 2>/dev/null || echo "")
+    
+    # 设置新剪贴板内容
+    echo -n "$text" | pbcopy
+    
+    sleep 0.5
+    
+    # 使用 Cmd+V 粘贴
+    osascript -e 'tell application "System Events" to keystroke "v" using command down'
+    
+    sleep 0.5
+    
+    # 恢复原剪贴板内容
+    if [ -n "$old_clipboard" ]; then
+        echo -n "$old_clipboard" | pbcopy
+    fi
+    
+    echo -e "${GREEN}✅ 粘贴完成${NC}"
+}
+
+# ============================================================================
+# AppleScript 直接输入（绕过部分保护）
+# ============================================================================
+as_type() {
+    local text="$1"
+    
+    echo -e "${CYAN}🍎 AppleScript 输入：$text${NC}"
+    
+    # 使用 AppleScript 直接设置文本
+    osascript -e "
+        tell application \"System Events\"
+            set the clipboard to \"$text\"
+            keystroke \"v\" using command down
+        end tell
+    "
+    
+    echo -e "${GREEN}✅ 输入完成${NC}"
+}
+
+# ============================================================================
+# 智能输入（自动选择最佳方式）
+# ============================================================================
+smart_type() {
+    local text="$1"
+    local mode="${2:-auto}"
+    
+    echo -e "${CYAN}🧠 智能输入：$text (模式：$mode)${NC}"
+    
+    case "$mode" in
+        "paste")
+            paste_text "$text"
+            ;;
+        "as")
+            as_type "$text"
+            ;;
+        "kb")
+            type_text "$text"
+            ;;
+        "auto")
+            # 自动策略：先尝试普通输入，失败则用粘贴
+            echo -e "${BLUE}   尝试普通键盘输入...${NC}"
+            if type_text "$text" 2>/dev/null; then
+                sleep 1
+                # 验证输入是否成功（通过截图对比或其他方式）
+                echo -e "${GREEN}   ✅ 键盘输入成功${NC}"
+            else
+                echo -e "${YELLOW}   ⚠️  键盘输入失败，使用剪贴板粘贴...${NC}"
+                paste_text "$text"
+            fi
+            ;;
+    esac
+}
+
+# ============================================================================
 # 视觉搜索
 # ============================================================================
 visual_search() {
@@ -325,7 +407,9 @@ show_help() {
     echo "  click <x> <y> [策略]     点击指定坐标 (策略：auto/cliclick/keyboard/applescript)"
     echo "  click-color <颜色>       点击指定颜色的区域"
     echo "  keyboard <序列>          键盘导航 (例：tab:3,space,return)"
-    echo "  type <文本>              输入文本"
+    echo "  type <文本>              输入文本（普通键盘）"
+    echo "  paste <文本>             剪贴板粘贴输入（用于密码等）"
+    echo "  smart-type <文本>        智能输入（自动选择最佳方式）"
     echo "  app <操作> <应用名>      应用控制 (open/activate/close/front)"
     echo "  find-color <颜色>        查找颜色区域"
     echo "  screenshot [文件名]      截图"
@@ -338,6 +422,8 @@ show_help() {
     echo "  $0 keyboard \"tab:3,space\""
     echo "  $0 app open \"Google Chrome\""
     echo "  $0 type \"Hello World\""
+    echo "  $0 paste \"sensitive-password\""
+    echo "  $0 smart-type \"auto-input\""
     echo ""
 }
 
@@ -385,6 +471,27 @@ main() {
                 exit 1
             fi
             type_text "$2"
+            ;;
+        "paste")
+            if [ $# -lt 2 ]; then
+                echo -e "${RED}❌ 参数不足${NC}"
+                exit 1
+            fi
+            paste_text "$2"
+            ;;
+        "smart-type")
+            if [ $# -lt 2 ]; then
+                echo -e "${RED}❌ 参数不足${NC}"
+                exit 1
+            fi
+            smart_type "$2" "${3:-auto}"
+            ;;
+        "as-type")
+            if [ $# -lt 2 ]; then
+                echo -e "${RED}❌ 参数不足${NC}"
+                exit 1
+            fi
+            as_type "$2"
             ;;
         "app")
             if [ $# -lt 3 ]; then
